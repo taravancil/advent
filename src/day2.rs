@@ -29,20 +29,17 @@ impl Present {
     }
 }
 
-pub fn part1(input: &str) -> u32 {
-    let lines: Vec<&str> = input.split('\n').collect();
-    let presents = lines.iter().map(|l| Present::new(get_dimensions(l)));
+pub fn get_dimensions(s: &str) -> Vec<u32> {
+    s.split('x').map(|x| x.parse::<u32>().unwrap_or(0)).collect()
+}
 
-    presents.fold(0, |paper, p| paper + p.wrapping_paper())
+fn part1(presents: &Vec<Present>) -> u32 {
+    presents.iter().fold(0, |paper, p| paper + p.wrapping_paper())
 }
 
 #[allow(unused_variables)]
-pub fn part2(input: &str) -> u32 {
+fn part2(presents: &Vec<Present>) -> u32 {
     42
-}
-
-pub fn get_dimensions(s: &str) -> Vec<u32> {
-    s.split('x').map(|x| x.parse::<u32>().unwrap_or(0)).collect()
 }
 
 pub fn result() -> (u32, u32) {
@@ -50,7 +47,13 @@ pub fn result() -> (u32, u32) {
     let mut input = String::new();
     f.read_to_string(&mut input).unwrap();
 
-    (part1(&input), part2(&input))
+    let lines: Vec<&str> = input.split('\n').collect();
+    let presents = lines
+        .iter()
+        .map(|l| Present::new(get_dimensions(l)))
+        .collect();
+
+    (part1(&presents), part2(&presents))
 }
 
 pub fn output() {
