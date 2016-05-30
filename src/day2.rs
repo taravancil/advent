@@ -29,19 +29,6 @@ impl Present {
     }
 }
 
-pub fn result() -> (u32, u32) {
-    let mut f = File::open("data/day2").unwrap();
-    let mut input = String::new();
-    f.read_to_string(&mut input).unwrap();
-
-    (part1(&input), part2(&input))
-}
-
-pub fn output() {
-    let r = result();
-    println!("-----\nDay 2\n-----\nPart 1: {}\nPart 2: {}\n", r.0, r.1);
-}
-
 pub fn part1(input: &str) -> u32 {
     let lines: Vec<&str> = input.split('\n').collect();
     let presents = lines.iter().map(|l| Present::new(get_dimensions(l)));
@@ -56,6 +43,19 @@ pub fn part2(input: &str) -> u32 {
 
 pub fn get_dimensions(s: &str) -> Vec<u32> {
     s.split('x').map(|x| x.parse::<u32>().unwrap_or(0)).collect()
+}
+
+pub fn result() -> (u32, u32) {
+    let mut f = File::open("data/day2").unwrap();
+    let mut input = String::new();
+    f.read_to_string(&mut input).unwrap();
+
+    (part1(&input), part2(&input))
+}
+
+pub fn output() {
+    let r = result();
+    println!("-----\nDay 2\n-----\nPart 1: {}\nPart 2: {}\n", r.0, r.1);
 }
 
 #[test]

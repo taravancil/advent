@@ -1,19 +1,6 @@
 use std::io::prelude::*;
 use std::fs::File;
 
-pub fn result() -> (i32, usize) {
-    let mut f = File::open("data/day1").unwrap();
-    let mut input = String::new();
-    f.read_to_string(&mut input).unwrap();
-
-    (part1(&input), part2(&input))
-}
-
-pub fn output() {
-    let r = result();
-    println!("-----\nDay 1\n-----\nPart 1: {}\nPart 2: {}\n", r.0, r.1);
-}
-
 pub fn part1(input: &str) -> i32 {
     input.chars()
         .map(|c| up_or_down(c))
@@ -39,6 +26,19 @@ fn up_or_down(c: char) -> i32 {
         ')' => -1,
         _   => 0,
     }
+}
+
+pub fn result() -> (i32, usize) {
+    let mut f = File::open("data/day1").unwrap();
+    let mut input = String::new();
+    f.read_to_string(&mut input).unwrap();
+
+    (part1(&input), part2(&input))
+}
+
+pub fn output() {
+    let r = result();
+    println!("-----\nDay 1\n-----\nPart 1: {}\nPart 2: {}\n", r.0, r.1);
 }
 
 #[test]
