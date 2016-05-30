@@ -23,3 +23,8 @@ pub fn output() {
     let r = result();
     println!("-----\nDay _\n-----\nPart 1: {}\nPart 2: {}\n", r.0, r.1);
 }
+
+#[test]
+fn test_result() {
+    assert_eq!(result(), (42, 42));
+}
