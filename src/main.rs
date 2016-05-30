@@ -8,4 +8,5 @@ fn main() {
 
     advent::day1::output();
     advent::day2::output();
+    advent::day3::output();
 }
