@@ -6,7 +6,7 @@ pub fn output() {
     let mut input = String::new();
     f.read_to_string(&mut input).unwrap();
 
-    println!("Day 1\n-----\nPart 1: {}\nPart 2: {}",
+    println!("Day 1\n-----\nPart 1: {}\nPart 2: {}\n",
         part1(&input),part2(&input));
 }
 
