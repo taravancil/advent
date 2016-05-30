@@ -17,20 +17,29 @@ impl Present {
         2 * (self.length*self.width + self.width*self.height + self.height*self.length)
     }
 
-    fn smallest_side(&self) -> u32 {
+    fn smallest_side(&self) -> (u32, u32) {
         // TODO: this is pretty ugly
         let d1 = cmp::min(self.length, self.width);
         let d2 = cmp::min(self.height, cmp::max(self.length, self.width));
-        d1 * d2
+        (d1, d2)
     }
 
     fn wrapping_paper(&self) -> u32 {
-        self.surface_area() + self.smallest_side()
+        let smallest_side = self.smallest_side();
+        self.surface_area() + area(smallest_side.0, smallest_side.1)
     }
 }
 
 pub fn get_dimensions(s: &str) -> Vec<u32> {
     s.split('x').map(|x| x.parse::<u32>().unwrap_or(0)).collect()
+}
+
+pub fn area(width: u32, height: u32) -> u32 {
+    width * height
+}
+
+pub fn perimeter(width: u32, height: u32) -> u32 {
+    2 * (width + height)
 }
 
 fn part1(presents: &Vec<Present>) -> u32 {
@@ -67,9 +76,19 @@ pub fn test_get_dimensions() {
 }
 
 #[test]
+pub fn test_area() {
+    assert_eq!(area(10, 10), 100);
+}
+
+#[test]
+pub fn test_perimeter() {
+    assert_eq!(perimeter(10, 10), 40);
+}
+
+#[test]
 pub fn test_smallest_side() {
     let p = Present { length: 1, width: 2, height: 3 };
-    assert_eq!(p.smallest_side(), 2);
+    assert_eq!(p.smallest_side(), (1, 2));
 }
 
 #[test]
