@@ -7,4 +7,5 @@ fn main() {
          line_delimeter, line_delimeter);
 
     advent::day1::output();
+    advent::day2::output();
 }
