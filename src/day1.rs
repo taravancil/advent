@@ -49,6 +49,6 @@ fn test_up_or_down() {
 }
 
 #[test]
-pub fn test_result() {
+fn test_result() {
     assert_eq!(result(), (232, 1783));
 }

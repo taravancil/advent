@@ -77,39 +77,39 @@ pub fn output() {
 }
 
 #[test]
-pub fn test_get_dimensions() {
+fn test_get_dimensions() {
     assert_eq!(get_dimensions("1x2x3"), vec![1, 2, 3]);
 }
 
 #[test]
-pub fn test_area() {
+fn test_area() {
     assert_eq!(area((10, 10)), 100);
 }
 
 #[test]
-pub fn test_perimeter() {
+fn test_perimeter() {
     assert_eq!(perimeter((10, 10)), 40);
 }
 
 #[test]
-pub fn test_volume() {
+fn test_volume() {
     let p = Present { length: 1, width: 2, height: 3 };
     assert_eq!(p.volume(), 6);
 }
 
 #[test]
-pub fn test_smallest_side() {
+fn test_smallest_side() {
     let p = Present { length: 1, width: 2, height: 3 };
     assert_eq!(p.smallest_side(), (1, 2));
 }
 
 #[test]
-pub fn test_surface_area() {
+fn test_surface_area() {
     let p = Present { length: 1, width: 2, height: 3 };
     assert_eq!(p.surface_area(), 22);
 }
 
 #[test]
-pub fn test_result() {
+fn test_result() {
     assert_eq!(result(), (1588178, 3783758));
 }
