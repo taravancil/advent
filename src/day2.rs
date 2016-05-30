@@ -74,3 +74,8 @@ pub fn test_surface_area() {
     let p = Present { length: 1, width: 2, height: 3 };
     assert_eq!(p.surface_area(), 22);
 }
+
+#[test]
+pub fn test_result() {
+    assert_eq!(result(), (1588178, 42));
+}

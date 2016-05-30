@@ -47,3 +47,8 @@ fn test_up_or_down() {
     assert_eq!(up_or_down(')'), -1);
     assert_eq!(up_or_down('x'), 0);
 }
+
+#[test]
+pub fn test_result() {
+    assert_eq!(result(), (232, 1783));
+}
