@@ -29,13 +29,17 @@ impl Present {
     }
 }
 
-pub fn output() {
+pub fn result() -> (u32, u32) {
     let mut f = File::open("data/day2").unwrap();
     let mut input = String::new();
     f.read_to_string(&mut input).unwrap();
 
-    println!("Day 2\n-----\nPart 1: {}\nPart 2: {}\n",
-        part1(&input), part2(&input));
+    (part1(&input), part2(&input))
+}
+
+pub fn output() {
+    let r = result();
+    println!("-----\nDay 2\n-----\nPart 1: {}\nPart 2: {}\n", r.0, r.1);
 }
 
 pub fn part1(input: &str) -> u32 {
