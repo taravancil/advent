@@ -24,9 +24,16 @@ impl Present {
         (d1, d2)
     }
 
+    fn volume(&self) -> u32 {
+        self.length * self.width * self.height
+    }
+
     fn wrapping_paper(&self) -> u32 {
-        let smallest_side = self.smallest_side();
-        self.surface_area() + area(smallest_side.0, smallest_side.1)
+        self.surface_area() + area(self.smallest_side())
+    }
+
+    fn ribbon(&self) -> u32 {
+        perimeter(self.smallest_side()) + self.volume()
     }
 }
 
@@ -34,21 +41,20 @@ pub fn get_dimensions(s: &str) -> Vec<u32> {
     s.split('x').map(|x| x.parse::<u32>().unwrap_or(0)).collect()
 }
 
-pub fn area(width: u32, height: u32) -> u32 {
-    width * height
+pub fn area(dimensions: (u32, u32)) -> u32 {
+    dimensions.0 * dimensions.1
 }
 
-pub fn perimeter(width: u32, height: u32) -> u32 {
-    2 * (width + height)
+pub fn perimeter(dimensions: (u32, u32)) -> u32 {
+    2 * (dimensions.0 + dimensions.1)
 }
 
 fn part1(presents: &Vec<Present>) -> u32 {
     presents.iter().fold(0, |paper, p| paper + p.wrapping_paper())
 }
 
-#[allow(unused_variables)]
 fn part2(presents: &Vec<Present>) -> u32 {
-    42
+    presents.iter().fold(0, |ribbon, p| ribbon + p.ribbon())
 }
 
 pub fn result() -> (u32, u32) {
@@ -77,12 +83,18 @@ pub fn test_get_dimensions() {
 
 #[test]
 pub fn test_area() {
-    assert_eq!(area(10, 10), 100);
+    assert_eq!(area((10, 10)), 100);
 }
 
 #[test]
 pub fn test_perimeter() {
-    assert_eq!(perimeter(10, 10), 40);
+    assert_eq!(perimeter((10, 10)), 40);
+}
+
+#[test]
+pub fn test_volume() {
+    let p = Present { length: 1, width: 2, height: 3 };
+    assert_eq!(p.volume(), 6);
 }
 
 #[test]
@@ -99,5 +111,5 @@ pub fn test_surface_area() {
 
 #[test]
 pub fn test_result() {
-    assert_eq!(result(), (1588178, 42));
+    assert_eq!(result(), (1588178, 3783758));
 }
