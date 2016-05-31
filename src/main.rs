@@ -11,4 +11,5 @@ fn main() {
     advent::day3::output();
     // Day 4 takes a while
     // advent::day4::output()
+    advent::day5::output();
 }
