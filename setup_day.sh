@@ -20,7 +20,7 @@ setup_day() {
 
         cp $TEMPLATE $day_file
         echo "pub mod ${day_module};" >> "src/lib.rs"
-        sed -i "\$i \    advent::${day_module}::output()" src/main.rs
+        sed -i "\$i \    advent::${day_module}::output();" src/main.rs
 }
 
 setup_day
