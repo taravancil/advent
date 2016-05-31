@@ -1,6 +1,7 @@
 [package]
 name = "advent"
 version = "0.1.0"
-authors = ["Tara <tbvanc@gmail.com>"]
+authors = ["Tara Vancil <tbvanc@gmail.com>"]
 
 [dependencies]
+rust-crypto = "^0.2"
