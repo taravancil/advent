@@ -15,13 +15,7 @@ struct Instruction {
     type_: InstructionType,
 }
 
-struct Light {
-    on: bool,
-}
-
-type GridRow = [Light; 1000];
-type Grid = [GridRow; 1000];
-type GridPosition = (u32, u32);
+type GridPosition = (usize, usize);
 
 fn parse_instruction(s: &str) -> Instruction {
     // TODO:
@@ -34,12 +28,12 @@ fn parse_instruction(s: &str) -> Instruction {
     let pos2_raw: Vec<&str> = raw[3].split(",").collect();
 
     let pos1 = (
-        pos1_raw[0].parse::<u32>().unwrap(),
-        pos1_raw[1].parse::<u32>().unwrap()
+        pos1_raw[0].parse::<usize>().unwrap(),
+        pos1_raw[1].parse::<usize>().unwrap()
     );
     let pos2 = (
-        pos2_raw[0].parse::<u32>().unwrap(),
-        pos2_raw[1].parse::<u32>().unwrap()
+        pos2_raw[0].parse::<usize>().unwrap(),
+        pos2_raw[1].parse::<usize>().unwrap()
     );
 
     let instruction_type = match raw[0] {
@@ -52,9 +46,31 @@ fn parse_instruction(s: &str) -> Instruction {
     Instruction { start: pos1, end: pos2, type_: instruction_type }
 }
 
-#[allow(unused_variables)]
-fn part1(instructions: &Vec<Instruction>) -> u32 {
-    42
+fn part1(instructions: &Vec<Instruction>) -> usize {
+    let mut grid = [false; 1000000];
+
+    for i in instructions {
+        let action = &i.type_;
+        let start_row = i.start.0;
+        let end_row = i.end.0;
+        let start_col = i.start.1;
+        let end_col = i.end.1;
+
+        for j in start_row..end_row+1 {
+            let row = j * 1000;
+
+            for k in start_col..end_col+1 {
+                let pos = row + k;
+
+                grid[pos] = match *action {
+                    InstructionType::On => true,
+                    InstructionType::Off => false,
+                    InstructionType::Toggle => !grid[pos],
+                };
+            }
+        }
+    }
+    grid.iter().filter(|&x| *x).count()
 }
 
 #[allow(unused_variables)]
@@ -62,7 +78,7 @@ fn part2(instructions: &Vec<Instruction>) -> u32 {
     42
 }
 
-pub fn result() -> (u32, u32) {
+pub fn result() -> (usize, u32) {
     let mut f = File::open("data/day6").unwrap();
     let mut input = String::new();
     f.read_to_string(&mut input).unwrap();
@@ -89,5 +105,5 @@ fn test_parse_instruction() {
 
 #[test]
 fn test_result() {
-    assert_eq!(result(), (42, 42));
+    assert_eq!(result(), (569999, 42));
 }
