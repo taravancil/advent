@@ -1,12 +1,14 @@
 use std::io::prelude::*;
 use std::fs::File;
 
+#[derive(Debug, PartialEq)]
 enum InstructionType {
     On,
     Off,
     Toggle,
 }
 
+#[derive(Debug, PartialEq)]
 struct Instruction {
     start: GridPosition,
     end: GridPosition,
@@ -29,7 +31,8 @@ fn parse_instruction(s: &str) -> Instruction {
 
     let raw: Vec<&str> = s.split_whitespace().collect();
     let pos1_raw: Vec<&str> = raw[1].split(",").collect();
-    let pos2_raw: Vec<&str> = raw[2].split(",").collect();
+    let pos2_raw: Vec<&str> = raw[3].split(",").collect();
+    println!("{:?}", pos2_raw);
 
     let pos1 = (
         pos1_raw[0].parse::<u32>().unwrap(),
