@@ -39,12 +39,10 @@ impl Word {
         let mut chars = self.0.chars();
 
         while count < 3 {
-            match chars.next() {
-                Some(c) => {
-                    if vowels.contains(&c) { count += 1; }
-                },
-                None => return false,
+            if let Some(c) = chars.next() {
+                if vowels.contains(&c) { count += 1; }
             }
+            else { return false;  }
         }
         true
     }
