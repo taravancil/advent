@@ -81,6 +81,14 @@ pub fn output() {
 }
 
 #[test]
+fn test_parse_instruction() {
+    let i = Instruction {
+        start: (756, 53), end: (923, 339), type_: InstructionType::Off
+    };
+    assert_eq!(parse_instruction("turnoff 756,53 through 923,339"), i);
+}
+
+#[test]
 fn test_result() {
     assert_eq!(result(), (42, 42));
 }
