@@ -21,6 +21,35 @@ type GridRow = [Light; 1000];
 type Grid = [GridRow; 1000];
 type GridPosition = (u32, u32);
 
+fn parse_instruction(s: &str) -> Instruction {
+    // TODO:
+    // If I could get a tuple from a vector, I could do something like:
+    // let (instruction_type, pos1, _, pos2) = raw_tuple
+    // and then parse each item individually
+
+    let raw: Vec<&str> = s.split_whitespace().collect();
+    let pos1_raw: Vec<&str> = raw[1].split(",").collect();
+    let pos2_raw: Vec<&str> = raw[2].split(",").collect();
+
+    let pos1 = (
+        pos1_raw[0].parse::<u32>().unwrap(),
+        pos1_raw[1].parse::<u32>().unwrap()
+    );
+    let pos2 = (
+        pos2_raw[0].parse::<u32>().unwrap(),
+        pos2_raw[1].parse::<u32>().unwrap()
+    );
+
+    let instruction_type = match raw[0] {
+       "turnon" => InstructionType::On,
+       "turnoff" => InstructionType::Off,
+       "toggle" => InstructionType::Toggle,
+       _ => panic!("Unknown instruction type"),
+    };
+
+    Instruction { start: pos1, end: pos2, type_: instruction_type }
+}
+
 #[allow(unused_variables)]
 fn part1(instructions: &Vec<Instruction>) -> u32 {
     42
