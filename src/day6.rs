@@ -73,12 +73,38 @@ fn part1(instructions: &Vec<Instruction>) -> usize {
     grid.iter().filter(|&x| *x).count()
 }
 
-#[allow(unused_variables)]
-fn part2(instructions: &Vec<Instruction>) -> u32 {
-    42
+fn part2(instructions: &Vec<Instruction>) -> usize {
+    let mut grid = [0; 1000000];
+
+    for i in instructions {
+        let action = &i.type_;
+        let start_row = i.start.0;
+        let end_row = i.end.0;
+        let start_col = i.start.1;
+        let end_col = i.end.1;
+
+        for j in start_row..end_row+1 {
+            let row = j * 1000;
+
+            for k in start_col..end_col+1 {
+                let pos = row + k;
+
+                let light = grid[pos];
+
+                match *action {
+                    InstructionType::On => grid[pos] += 1,
+                    InstructionType::Off => {
+                        if light > 0 { grid[pos] -= 1; }
+                    }
+                    InstructionType::Toggle => grid[pos] += 2,
+                };
+            }
+        }
+    }
+    grid.iter().fold(0, |brightness, light| brightness + light)
 }
 
-pub fn result() -> (usize, u32) {
+pub fn result() -> (usize, usize) {
     let mut f = File::open("data/day6").unwrap();
     let mut input = String::new();
     f.read_to_string(&mut input).unwrap();
@@ -105,5 +131,5 @@ fn test_parse_instruction() {
 
 #[test]
 fn test_result() {
-    assert_eq!(result(), (569999, 42));
+    assert_eq!(result(), (569999, 17836115));
 }
