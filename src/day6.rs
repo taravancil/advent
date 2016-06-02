@@ -70,6 +70,7 @@ fn part1(instructions: &Vec<Instruction>) -> usize {
             }
         }
     }
+
     grid.iter().filter(|&x| *x).count()
 }
 
@@ -101,6 +102,7 @@ fn part2(instructions: &Vec<Instruction>) -> usize {
             }
         }
     }
+
     grid.iter().fold(0, |brightness, light| brightness + light)
 }
 
